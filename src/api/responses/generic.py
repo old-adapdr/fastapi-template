@@ -5,7 +5,7 @@ from typing import List
 from api.schema.generic import Message
 
 
-class Generic:
+class GenericResponses:
     """
     Class contains generic and shared responses
     """

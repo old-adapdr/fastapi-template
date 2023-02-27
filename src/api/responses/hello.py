@@ -3,13 +3,13 @@ File contains responses for the '/hello' endpoint router
 """
 from typing import List
 from api.schema import APISchema
-from .generic import Generic
+from .generic import GenericResponses
 
 
 Schema = APISchema['hello']
 
 
-class Hello:
+class HelloResponses:
     """
     Class contains hello responses
     """
@@ -19,9 +19,9 @@ class Hello:
             "model": Schema.Hello,
             "description": "Hello successfully retrieved",
         },
-        **Generic.unauthorized,
-        **Generic.not_found,
-        **Generic.server_error,
+        **GenericResponses.unauthorized,
+        **GenericResponses.not_found,
+        **GenericResponses.server_error,
     }
 
     listed = {
@@ -29,9 +29,9 @@ class Hello:
             "model": List[Schema.Hello],
             "description": "HelloList successfully retrieved",
         },
-        **Generic.unauthorized,
-        **Generic.not_found,
-        **Generic.server_error,
+        **GenericResponses.unauthorized,
+        **GenericResponses.not_found,
+        **GenericResponses.server_error,
     }
 
     create = {
@@ -39,9 +39,9 @@ class Hello:
             "model": Schema.Hello,
             "description": "Hello successfully create",
         },
-        **Generic.unauthorized,
-        **Generic.not_found,
-        **Generic.server_error,
+        **GenericResponses.unauthorized,
+        **GenericResponses.not_found,
+        **GenericResponses.server_error,
     }
 
     update = {
@@ -49,9 +49,9 @@ class Hello:
             "model": Schema.Hello,
             "description": "Hello successfully updated",
         },
-        **Generic.unauthorized,
-        **Generic.not_found,
-        **Generic.server_error,
+        **GenericResponses.unauthorized,
+        **GenericResponses.not_found,
+        **GenericResponses.server_error,
     }
 
     """
@@ -63,7 +63,7 @@ class Hello:
             # 204 No Content
             "description": "Hello successfully deleted"
         },
-        **Generic.unauthorized,
-        **Generic.not_found,
-        **Generic.server_error,
+        **GenericResponses.unauthorized,
+        **GenericResponses.not_found,
+        **GenericResponses.server_error,
     }

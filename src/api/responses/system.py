@@ -3,10 +3,10 @@ File contains responses for the system endpoint router
 """
 from fastapi.responses import HTMLResponse
 
-from .generic import Generic
+from .generic import GenericResponses
 
 
-class System:
+class SystemResponses:
     """
     Class contains system responses
     """
@@ -16,7 +16,7 @@ class System:
             "class": HTMLResponse,
             "description": "HTML resource successfully served by the system",
         },
-        **Generic.not_found,
-        **Generic.server_error,
-        **Generic.unauthorized,
+        **GenericResponses.not_found,
+        **GenericResponses.server_error,
+        **GenericResponses.unauthorized,
     }

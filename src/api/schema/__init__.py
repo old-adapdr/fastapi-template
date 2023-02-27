@@ -2,11 +2,19 @@
 from importlib import import_module
 from pathlib import Path
 
+from config.auto_loader import AutoLoader
+
 APISchema: dict = {}
 
-for schema in Path("api/schema").iterdir():
-    if "__" not in str(schema):
-        name = schema.stem
-        module = import_module(f"api.schema.{schema.stem}")
-        schema_class = getattr(module, f"{name.capitalize()}Schema")
-        APISchema.update({name: schema_class})
+for schema in Path(AutoLoader.schema_location).iterdir():
+    if "__" in str(schema):
+        continue
+
+    name = schema.stem
+    module = f"{AutoLoader.schema_location}/{name}".replace('/', '.')
+    APISchema.update({
+        name: getattr(
+            import_module(module),
+            f"{name.capitalize()}Schema"
+        )
+    })

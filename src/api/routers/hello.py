@@ -1,71 +1,62 @@
 """File contains endpoint router for '/hello'"""
 from logging import getLogger
+from uuid import UUID
 
-from fastapi import APIRouter, Path, Query, status
+from fastapi import APIRouter, Path, Query, status, Depends, BackgroundTasks
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
 
+
 from api.schema import APISchema
 from api.responses import APIResponses
+from api.services import APIServices
+from api.tasks import APITasks
 
 
 # ? Router Configuration
 logger = getLogger(__name__)
-Responses = APIResponses.get('hello')
-Schema = APISchema.get('hello')
 router = APIRouter(
     prefix="/api/hello",
-    tags=["Hello"],
+    tags=["Hello CRUD"],
 )
 
+# ? Router Components
+Responses = APIResponses.get('hello')
+Schema = APISchema.get('hello')
 
-# ? Router endpoints
+
+# ? Router Endpoints
 @router.post(
     path="/",
     operation_id="api.hello.create",
     responses=Responses.create
 )
-async def create_hello(hello: Schema.Hello):
-    """Endpoint is used to create a `Hello` Object"""
-    result = Models.Hello.create(
-        hello.dict()
-    ).fresh()
+async def create_hello_message(
+    hello: Schema.Hello,
+    service=Depends(APIServices.get("hello")),
+    background=BackgroundTasks
+):
+    """Endpoint is used to create a `Hello` message object"""
+    result = service.create(hello)
+    background.add_task(APITasks.get("hello").create_later, entity=hello)
 
     if not result:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     return result
 
 
 @router.get(
-    path="/{hello_id}",
-    operation_id="api.hello.lookup",
+    path="/{uuid}",
+    operation_id="api.hello.retrieve",
     responses=Responses.lookup
 )
-async def lookup_hello(
-    hello_id: int = Path(..., description="ID of the Hello Entity to retrieve")
+async def retrieve_hello_message(
+    uuid: UUID = Path(..., description="ID of the Hello Entity to retrieve"),
+    service=Depends(APIServices.get("hello"))
 ):
-    """Endpoint is used to lookup a `Hello` Object"""
-    result = Models.Hello.find(hello_id)
-
-    if not result:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
-
-    return result
-
-
-@router.get(
-    path="/",
-    operation_id="api.hello.listed",
-    responses=Responses.listed
-)
-async def listed_hello(
-    limit: int = Query(..., description="Limit # records retrieved"),
-    page_nr: int = Query(..., description="First entry of the list"),
-):
-    """Endpoint is used to listed a `Hello` Object"""
-
-    result = Models.Hello.simple_paginate(limit, page_nr).get()
+    """Endpoint is used to retrieve a `Hello` message object"""
+    result = service.retrieve(uuid)
 
     if not result:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
@@ -74,16 +65,17 @@ async def listed_hello(
 
 
 @router.put(
-    path="/{hello_id}",
+    path="/{uuid}",
     operation_id="api.hello.update",
     responses=Responses.update
 )
-async def update_hello(
+async def update_hello_message(
     hello: Schema.Hello,
-    hello_id: str = Path(..., description="ID of the Hello Entity to update"),
+    uuid: str = Path(..., description="ID of the Hello Entity to update"),
+    service=Depends(APIServices.get("hello"))
 ):
-    """Endpoint is used to update a `Hello` Object"""
-    result = Models.Hello.where({"uuid": hello_id}).update(hello.dict()).get()
+    """Endpoint is used to update a `Hello` message object"""
+    result = service.update(uuid, hello)
 
     if not result:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
@@ -92,15 +84,16 @@ async def update_hello(
 
 
 @router.delete(
-    path="/{hello_id}",
+    path="/{uuid}",
     operation_id="api.hello.delete",
     responses=Responses.delete
 )
-async def delete_hello(
-    hello_id: str = Path(..., description="ID of the Hello Entity to delete"),
+async def delete_hello_message(
+    uuid: str = Path(..., description="ID of the Hello Entity to delete"),
+    service=Depends(APIServices.get("hello"))
 ):
-    """Endpoint is used to delete a `Hello` Object"""
-    result = Models.Hello.delete(hello_id)
+    """Endpoint is used to delete a `Hello` message object"""
+    result = service.delete(uuid)
 
     if not result:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
