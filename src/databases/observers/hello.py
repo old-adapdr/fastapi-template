@@ -35,7 +35,7 @@ class HelloObserver:
 
     def saved(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "saved" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -44,7 +44,7 @@ class HelloObserver:
 
     def updating(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "updating" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -53,7 +53,7 @@ class HelloObserver:
 
     def updated(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "updated" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -62,7 +62,7 @@ class HelloObserver:
 
     def booted(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "booted" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -71,7 +71,7 @@ class HelloObserver:
 
     def booting(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "booting" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -80,7 +80,7 @@ class HelloObserver:
 
     def hydrating(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "hydrating" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -89,7 +89,7 @@ class HelloObserver:
 
     def hydrated(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "hydrated" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -98,7 +98,7 @@ class HelloObserver:
 
     def deleting(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "deleting" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.
@@ -107,7 +107,7 @@ class HelloObserver:
 
     def deleted(self, hello: Model):
         """
-        Handle the Hello "creating" event.
+        Handle the Hello "deleted" event.
 
         Args:
             hello (masoniteorm.models.Model): Hello model.

@@ -5,7 +5,7 @@ from masoniteorm.models import Model
 from masoniteorm.scopes import SoftDeletesMixin, UUIDPrimaryKeyMixin
 
 
-class Hello(Model, UUIDPrimaryKeyMixin, SoftDeletesMixin):
+class HelloModel(Model, UUIDPrimaryKeyMixin, SoftDeletesMixin):
     """
     Database ORM Model for 'hello'
     """
@@ -17,5 +17,6 @@ class Hello(Model, UUIDPrimaryKeyMixin, SoftDeletesMixin):
     __timezone__ = "Europe/Amsterdam"
     __timestamps__ = True
 
-    __fillable__ = ["*"]
-    # __guarded__ = ["COLUMN"]
+    # __fillable__ = ["*"]
+    __guarded__ = ["created_at", "updated_at", "deleted_at"]
+    __hidden__ = ["uuid", "created_at", "updated_at", "deleted_at"]

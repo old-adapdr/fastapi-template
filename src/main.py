@@ -10,7 +10,6 @@ from fastapi.staticfiles import StaticFiles
 from api.routers import ROUTERS
 from config import Config
 
-
 # Initialize application with configs
 app = FastAPI(**Config.API.dict())
 

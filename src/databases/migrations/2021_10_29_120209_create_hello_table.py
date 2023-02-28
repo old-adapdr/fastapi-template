@@ -12,7 +12,7 @@ class CreateHelloTable(Migration):
         """
         with self.schema.create("hello") as table:
             table.uuid("uuid").primary()
-            table.string("name")
+            table.text("name", length=32)
 
             table.timestamps()
             table.soft_deletes()

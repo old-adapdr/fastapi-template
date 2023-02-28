@@ -6,8 +6,6 @@ from .hello import HelloObserver
 
 
 class Observers:
-    """
-    Container holding database observers
-    """
+    """Container holding database observers"""
 
     hello = HelloObserver
