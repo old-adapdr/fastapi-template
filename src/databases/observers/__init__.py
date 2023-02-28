@@ -2,10 +2,10 @@
 File contains database model observers
 ? Doc reference: https://orm.masoniteproject.com/models?q=obsrvers
 """
-from .hello import HelloObserver
+from .users import UsersObserver
 
 
 class Observers:
     """Container holding database observers"""
 
-    hello = HelloObserver
+    users = UsersObserver

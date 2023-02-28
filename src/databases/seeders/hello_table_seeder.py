@@ -1,14 +1,14 @@
-"""File contains seeder for the 'hello' table"""
+"""File contains seeder for the 'users' table"""
 from uuid import uuid4
 
 from masoniteorm.seeds import Seeder
 
-from databases.models.hello import HelloModel
+from databases.models.users import UsersModel
 
 
-class HelloTableSeeder(Seeder):
-    """Seeder for the 'hello' table"""
+class UsersTableSeeder(Seeder):
+    """Seeder for the 'users' table"""
 
     def run(self):
         """Run the database seeds."""
-        HelloModel.create({"uid": uuid4(), "name": "John Doe"})
+        UsersModel.create({"uid": uuid4(), "name": "John Doe"})

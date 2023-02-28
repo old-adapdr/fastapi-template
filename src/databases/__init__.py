@@ -3,7 +3,6 @@ Module contains database sub-modules
 """
 from .models import Models
 from .observers import Observers
-from .seeders import Seeders
 
 
 class Database:
@@ -13,4 +12,3 @@ class Database:
 
     Models = Models
     Observers = Observers
-    Seeders = Seeders

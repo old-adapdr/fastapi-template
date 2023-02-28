@@ -1,5 +1,5 @@
 """
-File contains tests for 'hello' features
+File contains tests for 'users' features
 """
 from unittest import TestCase
 
@@ -10,9 +10,9 @@ from src.main import app
 TestApp.__test__ = False
 
 
-class TestHello(TestCase):
+class TestUsers(TestCase):
     """
-    Testcases for 'hello' features
+    Testcases for 'users' features
     """
 
     app: TestApp

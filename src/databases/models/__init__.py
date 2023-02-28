@@ -1,6 +1,7 @@
 """Module contains database models"""
 
-from .hello import HelloModel
+from .users import UsersModel
+from .preferences import PreferencesModel
 
 
 class Models:
@@ -8,7 +9,8 @@ class Models:
     Container class holding all DB models.
     """
 
-    Hello = HelloModel
+    Users = UsersModel
+    Preferences = PreferencesModel
 
 
 """Module contains and loads Database Models"""

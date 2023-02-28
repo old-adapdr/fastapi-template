@@ -1,5 +1,5 @@
 """
-File contains response model/schema for the `Hello` table
+File contains response model/schema for the `Users` table
 """
 from typing import List
 from uuid import UUID, uuid4
@@ -7,15 +7,15 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, Field
 
 
-class Hello(BaseModel):
+class Users(BaseModel):
     """
-    Model for a `Hello` object
+    Model for a `Users` object
     """
 
     __uuid__: UUID = Field(description="Unique IDentifier", default_factory=uuid4)
 
-    name: str = Field(None, description="Who to say hello to")
-    pronouns: str = Field('Champion', description="Pronoun to use when saying hello")
+    name: str = Field(None, description="Who to say users to")
+    pronouns: str = Field('Champion', description="Pronoun to use when saying users")
 
     __created_at__: str = Field(..., description="When the record was created")
     __updated_at__: str = Field(..., description="When the record was last updated")
@@ -25,18 +25,18 @@ class Hello(BaseModel):
         orm_mode = True
 
 
-class HelloList(BaseModel):
+class UsersList(BaseModel):
     """
-    Model for a `Hello` object
+    Model for a `Users` object
     """
 
-    data: List[Hello]
+    data: List[Users]
 
     class Config:
         orm_mode = False
 
 
-class HelloSchema:
-    """Container holding all Hello Schema"""
-    Hello = Hello
-    HelloList = List[Hello]
+class UsersSchema:
+    """Container holding all Users Schema"""
+    Users = Users
+    UsersList = List[Users]
