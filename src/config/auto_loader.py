@@ -10,6 +10,7 @@ class _AutoLoader(BaseSettings):
     responses_location: str = Field('api/responses')
     services_loaction: str = Field('api/services')
     tasks_location: str = Field('api/tasks')
+    models_location: str = Field('databases/models')
 
     class Config:
         """Internal configurations for the container"""
