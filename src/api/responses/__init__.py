@@ -9,7 +9,6 @@ APIResponses: dict = {}
 for responses in Path(AutoLoader.responses_location).iterdir():
     if "__" in str(responses):
         continue
-
     name = responses.stem
     module = f"{AutoLoader.responses_location}/{name}".replace('/', '.')
     APIResponses.update({
