@@ -197,4 +197,3 @@ Thumbs.db
 ## Development & Deployment files ##
 src/.env
 requirements.txt
-Dockerfile
