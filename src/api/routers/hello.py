@@ -2,7 +2,7 @@
 from logging import getLogger
 from uuid import UUID
 
-from fastapi import APIRouter, Path, Query, status, Depends, BackgroundTasks
+from fastapi import APIRouter, Path, Query, status, Depends, BackgroundTasks, Response
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
 
@@ -25,7 +25,24 @@ Responses = APIResponses.get('hello')
 Schema = APISchema.get('hello')
 
 
-# ? Router Endpoints
+@router.options(
+    path="/",
+    operation_id="api.hello.options",
+    responses=Responses.options
+)
+async def hello_options(
+    service=Depends(APIServices.get("hello"))
+):
+    """Endpoint is used to find options for the `Hello` router"""
+    result = service.options()
+    print(result)
+
+    if not result:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    return Response(headers={"allow": str(result)})
+
+
 @router.post(
     path="/",
     operation_id="api.hello.create",
@@ -33,12 +50,14 @@ Schema = APISchema.get('hello')
 )
 async def create_hello_message(
     hello: Schema.Hello,
-    service=Depends(APIServices.get("hello")),
-    background=BackgroundTasks
+    background: BackgroundTasks,
+    service=Depends(APIServices.get("hello"))
 ):
-    """Endpoint is used to create a `Hello` message object"""
+    """Endpoint is used to create a `Hello` entity"""
     result = service.create(hello)
-    background.add_task(APITasks.get("hello").create_later, entity=hello)
+
+    # ? Is executed after the router has returned a response
+    background.add_task(APITasks.get("hello").do_after, entity="hello")
 
     if not result:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
@@ -47,15 +66,37 @@ async def create_hello_message(
 
 
 @router.get(
-    path="/{uuid}",
-    operation_id="api.hello.retrieve",
-    responses=Responses.lookup
+    path="/",
+    operation_id="api.hello.retrieve-multiple",
+    responses=Responses.retrieve_multiple
 )
-async def retrieve_hello_message(
-    uuid: UUID = Path(..., description="ID of the Hello Entity to retrieve"),
+async def retrieve_mulltiple(
+    name: str = Query(None, description="Name of the Hello Entity to retrieve"),
+    page_nr: int = Query(1, description="Page number to retrieve"),
+    limit: int = Query(10, description="Number of items to retrieve"),
     service=Depends(APIServices.get("hello"))
 ):
-    """Endpoint is used to retrieve a `Hello` message object"""
+    """Endpoint is used to retrieve a list of `Hello` entities"""
+
+    result = service.retrieve_multiple(name=name, limit=limit, page_nr=page_nr)
+
+    if not result:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    return result
+
+
+@router.get(
+    path="/{uuid}",
+    operation_id="api.hello.retrieve",
+    responses=Responses.retrieve
+)
+async def retrieve_hello_message(
+    uuid: UUID = Path(None, description="Unique Identifier for the Hello Entity to retrieve"),
+    service=Depends(APIServices.get("hello"))
+):
+    """Endpoint is used to retrieve a `Hello` entity"""
+
     result = service.retrieve(uuid)
 
     if not result:
@@ -66,15 +107,34 @@ async def retrieve_hello_message(
 
 @router.put(
     path="/{uuid}",
+    operation_id="api.hello.replace",
+    responses=Responses.replace
+)
+async def replace_hello_message(
+    hello: Schema.Hello,
+    uuid: str = Path(..., description="Unique Identifier for the Hello Entity to update"),
+    service=Depends(APIServices.get("hello"))
+):
+    """Endpoint is used to replace a `Hello` entity"""
+    result = service.replace(uuid, hello)
+
+    if not result:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    return result
+
+
+@router.patch(
+    path="/{uuid}",
     operation_id="api.hello.update",
     responses=Responses.update
 )
 async def update_hello_message(
     hello: Schema.Hello,
-    uuid: str = Path(..., description="ID of the Hello Entity to update"),
+    uuid: str = Path(..., description="Unique Identifier for the Hello Entity to update"),
     service=Depends(APIServices.get("hello"))
 ):
-    """Endpoint is used to update a `Hello` message object"""
+    """Endpoint is used to update a `Hello` entity"""
     result = service.update(uuid, hello)
 
     if not result:
@@ -89,10 +149,10 @@ async def update_hello_message(
     responses=Responses.delete
 )
 async def delete_hello_message(
-    uuid: str = Path(..., description="ID of the Hello Entity to delete"),
+    uuid: str = Path(..., description="Unique Identifier for the Hello Entity to delete"),
     service=Depends(APIServices.get("hello"))
 ):
-    """Endpoint is used to delete a `Hello` message object"""
+    """Endpoint is used to delete a `Hello` entity"""
     result = service.delete(uuid)
 
     if not result:
