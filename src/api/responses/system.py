@@ -1,18 +1,14 @@
-"""
-File contains responses for the system endpoint router
-"""
+"""File contains responses for the system endpoint router"""
+from fastapi import status
 from fastapi.responses import HTMLResponse
-
 from .generic import GenericResponses
 
 
 class SystemResponses:
-    """
-    Class contains system responses
-    """
+    """Class contains system responses"""
 
     index = {
-        "200": {
+        status.HTTP_200_OK: {
             "class": HTMLResponse,
             "description": "HTML resource successfully served by the system",
             "headers": {

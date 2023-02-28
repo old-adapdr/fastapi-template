@@ -1,6 +1,7 @@
 """
 File contains generic and shared responses
 """
+from fastapi import status
 from typing import List
 from api.schema.generic import Message
 
@@ -11,8 +12,8 @@ class GenericResponses:
     """
 
     # 200s
-    success = {
-        "200": {
+    ok = {
+        status.HTTP_200_OK: {
             "model": List[Message],
             "description": "Successfully processed operation",
             "headers": {
@@ -34,7 +35,7 @@ class GenericResponses:
 
     # 300s
     redirect = {
-        "308": {
+        status.HTTP_308_PERMANENT_REDIRECT: {
             "description": "Redirects from index to /docs",
             "headers": {
                 "Location": {
@@ -59,7 +60,7 @@ class GenericResponses:
 
     # 400s
     unauthorized = {
-        "401": {
+        status.HTTP_401_UNAUTHORIZED: {
             "model": List[Message],
             "description": "Unauthorized to view requested resource",
             "headers": {
@@ -79,7 +80,7 @@ class GenericResponses:
         }
     }
     not_found = {
-        "404": {
+        status.HTTP_404_NOT_FOUND: {
             "model": List[Message],
             "description": "Could not find requested resource",
             "headers": {
@@ -99,7 +100,7 @@ class GenericResponses:
         },
     }
     conflict = {
-        "409": {
+        status.HTTP_409_CONFLICT: {
             "model": List[Message],
             "descriptions": "The requested resource already exists!",
             "headers": {
@@ -119,7 +120,7 @@ class GenericResponses:
         }
     }
     unprocessable = {
-        "422": {
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {
             "model": List[Message],
             "descriptions": "Server could not process entity",
             "headers": {
@@ -141,7 +142,7 @@ class GenericResponses:
 
     # 500s
     server_error = {
-        "500": {
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {
             "model": List[Message],
             "description": "Server could not process request",
             "headers": {

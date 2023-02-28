@@ -1,27 +1,24 @@
-"""
-File contains responses for the '/hello' endpoint router
-"""
+"""File contains responses for the '/users' endpoint router"""
 from typing import List
+from fastapi import status
 from api.schema import APISchema
 from .generic import GenericResponses
 
 
-Schema = APISchema['hello']
+Schema = APISchema['users']
 GenericSchema = APISchema['generic']
 
 
-class HelloResponses:
-    """
-    Class contains hello responses
-    """
+class UsersResponses:
+    """Class contains users responses"""
 
     options = {
-        "200": {
+        status.HTTP_200_OK: {
             "content": None,
-            "description": "Hello router options successfully retrieved",
+            "description": "Users router options successfully retrieved",
             "headers": {
                 "allow": {
-                    "description": "Allowed methods for the Hello router",
+                    "description": "Allowed methods for the Users router",
                     "type": "List[string]"
                 }
             }
@@ -31,9 +28,9 @@ class HelloResponses:
         **GenericResponses.server_error,
     }
     retrieve = {
-        "200": {
-            "model": Schema.Hello,
-            "description": "Hello successfully retrieved",
+        status.HTTP_200_OK: {
+            "model": Schema.Users,
+            "description": "Users successfully retrieved",
             "headers": {
                 "content-length": {
                     "description": "Content Length",
@@ -54,9 +51,9 @@ class HelloResponses:
         **GenericResponses.server_error,
     }
     retrieve_multiple = {
-        "200": {
-            "model": List[Schema.Hello],
-            "description": "Hello successfully retrieved",
+        status.HTTP_200_OK: {
+            "model": List[Schema.Users],
+            "description": "Users successfully retrieved",
             "headers": {
                 "content-length": {
                     "description": "Content Length",
@@ -78,9 +75,9 @@ class HelloResponses:
     }
 
     listed = {
-        "200": {
-            "model": List[Schema.Hello],
-            "description": "HelloList successfully retrieved",
+        status.HTTP_200_OK: {
+            "model": List[Schema.Users],
+            "description": "UsersList successfully retrieved",
             "headers": {
                 "content-length": {
                     "description": "Content Length",
@@ -102,9 +99,9 @@ class HelloResponses:
     }
 
     create = {
-        "201": {
-            "model": Schema.Hello,
-            "description": "Hello successfully create",
+        status.HTTP_201_CREATED: {
+            "model": Schema.Users,
+            "description": "Users successfully created",
             "headers": {
                 "content-length": {
                     "description": "Content Length",
@@ -126,9 +123,9 @@ class HelloResponses:
     }
 
     update = {
-        "201": {
-            "model": Schema.Hello,
-            "description": "Hello successfully updated",
+        status.HTTP_200_OK: {
+            "model": Schema.Users,
+            "description": "Users successfully updated",
             "headers": {
                 "content-length": {
                     "description": "Content Length",
@@ -149,9 +146,9 @@ class HelloResponses:
         **GenericResponses.server_error,
     }
     replace = {
-        "201": {
-            "model": Schema.Hello,
-            "description": "Hello successfully replaced",
+        status.HTTP_200_OK: {
+            "model": Schema.Users,
+            "description": "Users successfully replaced",
             "headers": {
                 "content-length": {
                     "description": "Content Length",
@@ -173,9 +170,9 @@ class HelloResponses:
     }
 
     delete = {
-        "204": {
+        status.HTTP_204_NO_CONTENT: {
             "content": None,
-            "description": "Hello successfully deleted",
+            "description": "Users successfully deleted",
             "headers": {
                 "content-length": {
                     "description": "Content Length",
