@@ -1,4 +1,4 @@
-"""Module contains and loads API Responses"""
+"""Module loads and contains API Responses"""
 from importlib import import_module
 from pathlib import Path
 
@@ -10,10 +10,7 @@ for responses in Path(AutoLoader.responses_location).iterdir():
     if "__" in str(responses):
         continue
     name = responses.stem
-    module = f"{AutoLoader.responses_location}/{name}".replace('/', '.')
-    APIResponses.update({
-        name: getattr(
-            import_module(module),
-            f"{name.capitalize()}Responses"
-        )
-    })
+    module = f"{AutoLoader.responses_location}/{name}".replace("/", ".")
+    APIResponses.update(
+        {name: getattr(import_module(module), f"{name.capitalize()}Responses")}
+    )

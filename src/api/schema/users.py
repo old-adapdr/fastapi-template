@@ -15,7 +15,7 @@ class Users(BaseModel):
     __uuid__: UUID = Field(description="Unique IDentifier", default_factory=uuid4)
 
     name: str = Field(None, description="Who to say users to")
-    pronouns: str = Field('Champion', description="Pronoun to use when saying users")
+    pronouns: str = Field("Champion", description="Pronoun to use when saying users")
 
     __created_at__: str = Field(..., description="When the record was created")
     __updated_at__: str = Field(..., description="When the record was last updated")
@@ -32,11 +32,9 @@ class UsersList(BaseModel):
 
     data: List[Users]
 
-    class Config:
-        orm_mode = False
-
 
 class UsersSchema:
     """Container holding all Users Schema"""
+
     Users = Users
     UsersList = List[Users]

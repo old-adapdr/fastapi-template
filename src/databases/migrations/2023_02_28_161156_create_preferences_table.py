@@ -14,9 +14,9 @@ class CreatePreferencesTable(Migration):
             table.boolean("toggle_email").default(True)
             table.boolean("toggle_notifications").default(True)
 
-            table.uuid("user_id").foreign("user_id") \
-                 .references("uuid").on("users") \
-                 .on_delete("cascade")
+            table.uuid("user_id").foreign("user_id").references("uuid").on(
+                "users"
+            ).on_delete("cascade")
 
             table.timestamps()
 

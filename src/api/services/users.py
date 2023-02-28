@@ -1,11 +1,12 @@
 """File contains the UsersService class."""
 from typing import List
-from databases.models import Models
+
 from api.schema.users import Users, UsersList
+from databases.models import Models
 
 
 class UsersService:
-    """Service class for the UsersController."""
+    """Service class for the UsersRouter."""
 
     def options(self):
         return ["HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"]
@@ -20,7 +21,9 @@ class UsersService:
         result = Models.Users.find(uuid)
         return Users.from_orm(result)
 
-    def retrieve_multiple(self, limit: int = 10, page_nr: int = 1, **kwargs) -> List[Users]:
+    def retrieve_multiple(
+        self, limit: int = 10, page_nr: int = 1, **kwargs
+    ) -> List[Users]:
         """Retrieves a `Users` Entity by uuid"""
         # ? Removes all empty kwarg pairs =)
         query = {key: value for key, value in kwargs.items() if value}

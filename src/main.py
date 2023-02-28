@@ -7,7 +7,7 @@ ex: `uvicorn main:app --reload` from `src/`
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from api.routers import ROUTERS
+from api.routers import APIRouters
 from config import Config
 
 # Initialize application with configs
@@ -17,4 +17,4 @@ app = FastAPI(**Config.API.dict())
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # Add the routers
-[app.include_router(router) for router in ROUTERS]
+[app.include_router(router) for router in APIRouters]

@@ -11,13 +11,10 @@ for service in Path(AutoLoader.services_loaction).iterdir():
         continue
 
     name = service.stem
-    module = f"{AutoLoader.services_loaction}/{name}".replace('/', '.')
-    SERVICES.update({
-        name: getattr(
-            import_module(module),
-            f"{name.capitalize()}Service"
-        )
-    })
+    module = f"{AutoLoader.services_loaction}/{name}".replace("/", ".")
+    SERVICES.update(
+        {name: getattr(import_module(module), f"{name.capitalize()}Service")}
+    )
 
 
 class APIServices:

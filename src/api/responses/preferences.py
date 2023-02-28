@@ -1,4 +1,4 @@
-"""File contains responses for the '/users' endpoint router"""
+"""File contains responses for the '/preferences' endpoint router"""
 from typing import List
 
 from fastapi import status
@@ -7,20 +7,20 @@ from api.schema import APISchema
 
 from .generic import GenericResponses
 
-Schema = APISchema["users"]
+Schema = APISchema["preferences"]
 GenericSchema = APISchema["generic"]
 
 
-class UsersResponses:
-    """Class contains users responses"""
+class PreferencesResponses:
+    """Class contains preferences responses"""
 
     options = {
         status.HTTP_200_OK: {
             "content": None,
-            "description": "Users router options successfully retrieved",
+            "description": "Preferences router options successfully retrieved",
             "headers": {
                 "allow": {
-                    "description": "Allowed methods for the Users router",
+                    "description": "Allowed methods for the Preferences router",
                     "type": "List[string]",
                 }
             },
@@ -32,8 +32,8 @@ class UsersResponses:
 
     retrieve = {
         status.HTTP_200_OK: {
-            "model": Schema.Users,
-            "description": "Users successfully retrieved",
+            "model": Schema.Preferences,
+            "description": "Preferences successfully retrieved",
             "headers": {
                 "content-length": {"description": "Content Length", "type": "int"},
                 "date": {"description": "Response Date", "type": "Datetime"},
@@ -47,8 +47,8 @@ class UsersResponses:
 
     listed = {
         status.HTTP_200_OK: {
-            "model": List[Schema.Users],
-            "description": "UsersList successfully retrieved",
+            "model": List[Schema.Preferences],
+            "description": "PreferencesList successfully retrieved",
             "headers": {
                 "content-length": {"description": "Content Length", "type": "int"},
                 "date": {"description": "Response Date", "type": "Datetime"},
@@ -62,8 +62,8 @@ class UsersResponses:
 
     create = {
         status.HTTP_201_CREATED: {
-            "model": Schema.Users,
-            "description": "Users successfully created",
+            "model": Schema.Preferences,
+            "description": "Preferences successfully created",
             "headers": {
                 "content-length": {"description": "Content Length", "type": "int"},
                 "date": {"description": "Response Date", "type": "Datetime"},
@@ -77,8 +77,8 @@ class UsersResponses:
 
     update = {
         status.HTTP_200_OK: {
-            "model": Schema.Users,
-            "description": "Users successfully updated",
+            "model": Schema.Preferences,
+            "description": "Preferences successfully updated",
             "headers": {
                 "content-length": {"description": "Content Length", "type": "int"},
                 "date": {"description": "Response Date", "type": "Datetime"},
@@ -92,8 +92,8 @@ class UsersResponses:
 
     replace = {
         status.HTTP_200_OK: {
-            "model": Schema.Users,
-            "description": "Users successfully replaced",
+            "model": Schema.Preferences,
+            "description": "Preferences successfully replaced",
             "headers": {
                 "content-length": {"description": "Content Length", "type": "int"},
                 "date": {"description": "Response Date", "type": "Datetime"},
@@ -108,7 +108,7 @@ class UsersResponses:
     delete = {
         status.HTTP_204_NO_CONTENT: {
             "content": None,
-            "description": "Users successfully deleted",
+            "description": "Preferences successfully deleted",
             "headers": {
                 "content-length": {"description": "Content Length", "type": "int"},
                 "date": {"description": "Response Date", "type": "Datetime"},

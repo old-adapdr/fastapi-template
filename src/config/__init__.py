@@ -5,6 +5,7 @@ This is implemented using Pydantic for type safety and docker secerts support.
 from pydantic import BaseSettings
 
 from .api import APIConfig
+
 # from .database import DatabaseConfig
 
 

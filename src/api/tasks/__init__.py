@@ -11,13 +11,8 @@ for service in Path(AutoLoader.tasks_location).iterdir():
         continue
 
     name = service.stem
-    module = f"{AutoLoader.tasks_location}/{name}".replace('/', '.')
-    TASKS.update({
-        name: getattr(
-            import_module(module),
-            f"{name.capitalize()}Tasks"
-        )
-    })
+    module = f"{AutoLoader.tasks_location}/{name}".replace("/", ".")
+    TASKS.update({name: getattr(import_module(module), f"{name.capitalize()}Tasks")})
 
 
 class APITasks:

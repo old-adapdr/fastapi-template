@@ -11,7 +11,7 @@ from api.responses import APIResponses
 # ? Setup Router
 logger = getLogger(__name__)
 templates = Jinja2Templates(directory="frontend/templates")
-Responses = APIResponses.get('system')
+Responses = APIResponses.get("system")
 router = APIRouter(
     tags=["System"],
 )

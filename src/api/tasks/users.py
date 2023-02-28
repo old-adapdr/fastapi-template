@@ -7,4 +7,4 @@ class UsersTasks:
 
     @staticmethod
     async def do_after(entity: UsersSchema):
-        print(f'users {entity.name}')
+        print(f"users {entity.name}")

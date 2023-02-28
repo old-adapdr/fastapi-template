@@ -1,7 +1,7 @@
 """Module contains database models"""
 
-from .users import UsersModel
 from .preferences import PreferencesModel
+from .users import UsersModel
 
 
 class Models:
@@ -13,22 +13,22 @@ class Models:
     Preferences = PreferencesModel
 
 
-"""Module contains and loads Database Models"""
-from importlib import import_module
-from pathlib import Path
+# """Module contains and loads Database Models"""
+# from importlib import import_module
+# from pathlib import Path
 
-from config.auto_loader import AutoLoader
+# from config.auto_loader import AutoLoader
 
-DBModels: dict = {}
+# DBModels: dict = {}
 
-for model in Path(AutoLoader.models_location).iterdir():
-    if "__" in str(model):
-        continue
-    name = model.stem
-    module = f"{AutoLoader.models_location}/{name}".replace('/', '.')
-    DBModels.update({
-        name: getattr(
-            import_module(module),
-            f"{name.capitalize()}Model"
-        )
-    })
+# for model in Path(AutoLoader.models_location).iterdir():
+#     if "__" in str(model):
+#         continue
+#     name = model.stem
+#     module = f"{AutoLoader.models_location}/{name}".replace('/', '.')
+#     DBModels.update({
+#         name: getattr(
+#             import_module(module),
+#             f"{name.capitalize()}Model"
+#         )
+#     })
