@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from masoniteorm.seeds import Seeder
 
-from databases.models.users import UsersModel
+from databases.models import UsersModel
 
 
 class UsersTableSeeder(Seeder):

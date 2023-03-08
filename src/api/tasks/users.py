@@ -6,5 +6,5 @@ class UsersTasks:
     """Tasks container for the UsersRouter"""
 
     @staticmethod
-    async def do_after(entity: UsersSchema):
-        print(f"users {entity.name}")
+    async def do_after(entity: UsersSchema.Users):
+        print(f"User.Name: {entity.name}")

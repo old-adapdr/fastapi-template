@@ -3,6 +3,9 @@ File contains users model
 """
 from masoniteorm.models import Model
 from masoniteorm.scopes import SoftDeletesMixin, UUIDPrimaryKeyMixin
+from masoniteorm.relationships import has_one
+
+from databases.observers.users import UsersObserver
 
 
 class UsersModel(Model, UUIDPrimaryKeyMixin, SoftDeletesMixin):
@@ -20,3 +23,11 @@ class UsersModel(Model, UUIDPrimaryKeyMixin, SoftDeletesMixin):
     # __fillable__ = ["*"]
     __guarded__ = ["created_at", "updated_at", "deleted_at"]
     __hidden__ = ["uuid", "created_at", "updated_at", "deleted_at"]
+
+    @has_one('uuid', 'user_id')
+    def preferences(self):
+        from databases.models.preferences import PreferencesModel
+        return PreferencesModel
+
+
+UsersModel.observe(UsersObserver())

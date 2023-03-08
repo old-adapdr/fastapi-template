@@ -16,8 +16,8 @@ class CreateUsersTable(Migration):
             table.text("pronouns", length=32)
             table.integer("age", length=3)
             table.text("email", length=64)
-            table.text("password", length=128)
-            table.text("salt", length=128)
+            table.text("password", length=128, nullable=True)
+            table.text("salt", length=128, nullable=True)
 
             table.timestamps()
             table.soft_deletes()

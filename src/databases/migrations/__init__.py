@@ -1,3 +1,1 @@
-"""
-Module contains database migrations
-"""
+"""Module contains database migrations"""

@@ -28,7 +28,6 @@ Schema = APISchema.get("users")
 async def users_options(service=Depends(APIServices.get("users"))):
     """Endpoint is used to find options for the `Users` router"""
     result = service.options()
-    print(result)
 
     if not result:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
@@ -51,7 +50,7 @@ async def create_users(
     result = service.create(users)
 
     # ? Is executed after the router has returned a response
-    background.add_task(APITasks.get("users").do_after, entity="users")
+    background.add_task(APITasks.get("users").do_after, entity=result)
 
     if not result:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)

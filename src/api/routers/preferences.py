@@ -30,7 +30,6 @@ Schema = APISchema.get("preferences")
 async def preferences_options(service=Depends(APIServices.get("preferences"))):
     """Endpoint is used to find options for the `Preferences` router"""
     result = service.options()
-    print(result)
 
     if not result:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
