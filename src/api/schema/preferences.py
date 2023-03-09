@@ -11,7 +11,9 @@ class Preferences(BaseModel):
     """Model for a `Preferences` object"""
 
     __uuid__: UUID = Field(description="Unique IDentifier", default_factory=uuid4)
-    __user_id__: UUID = Field(description="User the preferences belongs to", default_factory=uuid4)
+    __user_id__: UUID = Field(
+        description="User the preferences belongs to", default_factory=uuid4
+    )
 
     toggle_dark_mode: bool = Field(True, description="Toggle dark mode")
     toggle_email: bool = Field(True, description="Toggle email")

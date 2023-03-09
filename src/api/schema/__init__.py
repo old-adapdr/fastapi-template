@@ -5,22 +5,25 @@ from pathlib import Path
 from config.auto_loader import AutoLoader
 
 
-class SchemaContainer(AutoLoader):
+class SchemaContainer:
+    """Class is used as a container for all API Schemas"""
+
     def __init__(self) -> None:
-        to_load: dict = {}
         # ? Locate other schema's
-        for schema in Path(self.schema_location).iterdir():
+        to_load: dict = {}
+        for schema in Path(AutoLoader().schema_location).iterdir():
             if "__" in str(schema):
                 continue
 
             # ? Find required names & properties
             name = schema.stem
-            module_name = f"{self.schema_location}/{name}".replace("/", ".")
-            schema_container = getattr(import_module(module_name), f"{name.capitalize()}Schema")
-            # ? Update API Schema
+            module_name = f"{AutoLoader().schema_location}/{name}".replace("/", ".")
+            schema_container = getattr(
+                import_module(module_name), f"{name.capitalize()}Schema"
+            )
             to_load.update({name: schema_container})
 
-        # ? Set all APISchema properties
+        # ? Set all SchemaContainer properties
         for key, value in to_load.items():
             setattr(self, key, value)
 

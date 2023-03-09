@@ -19,13 +19,13 @@ router = APIRouter(
 )
 
 # ? Router Components
-Responses = APIResponses.get("users")
+Responses = APIResponses.users
 Schema = APISchema.users
 
 
 # ? Router CRUD Endpoints
 @router.options(path="/", operation_id="api.users.options", responses=Responses.options)
-async def users_options(service=Depends(APIServices.get("users"))):
+async def users_options(service=Depends(APIServices.users)):
     """Endpoint is used to find options for the `Users` router"""
     result = service.options()
 
@@ -44,7 +44,7 @@ async def users_options(service=Depends(APIServices.get("users"))):
 async def create_users(
     users: Schema.Users,
     background: BackgroundTasks,
-    service=Depends(APIServices.get("users")),
+    service=Depends(APIServices.users),
 ):
     """Endpoint is used to create a `Users` entity"""
     result = service.create(users)
@@ -63,7 +63,7 @@ async def retrieve_users_list(
     name: str = Query(None, description="Name of the Users Entity to retrieve"),
     page_nr: int = Query(1, description="Page number to retrieve"),
     limit: int = Query(10, description="Number of items to retrieve"),
-    service=Depends(APIServices.get("users")),
+    service=Depends(APIServices.users),
 ):
     """Endpoint is used to retrieve a list of `Users` entities"""
 
@@ -84,7 +84,7 @@ async def retrieve_users(
     uuid: UUID = Path(
         None, description="Unique Identifier for the Users Entity to retrieve"
     ),
-    service=Depends(APIServices.get("users")),
+    service=Depends(APIServices.users),
 ):
     """Endpoint is used to retrieve a `Users` entity"""
 
@@ -104,7 +104,7 @@ async def replace_users(
     uuid: str = Path(
         ..., description="Unique Identifier for the Users Entity to update"
     ),
-    service=Depends(APIServices.get("users")),
+    service=Depends(APIServices.users),
 ):
     """Endpoint is used to replace a `Users` entity"""
     result = service.replace(uuid, users)
@@ -123,7 +123,7 @@ async def update_users(
     uuid: str = Path(
         ..., description="Unique Identifier for the Users Entity to update"
     ),
-    service=Depends(APIServices.get("users")),
+    service=Depends(APIServices.users),
 ):
     """Endpoint is used to update a `Users` entity"""
     result = service.update(uuid, users)
@@ -144,7 +144,7 @@ async def delete_users(
     uuid: str = Path(
         ..., description="Unique Identifier for the Users Entity to delete"
     ),
-    service=Depends(APIServices.get("users")),
+    service=Depends(APIServices.users),
 ):
     """Endpoint is used to delete a `Users` entity"""
     result = service.delete(uuid)

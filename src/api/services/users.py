@@ -2,7 +2,7 @@
 from typing import List
 
 from api.schema.users import Users, UsersList
-from databases.models import DBModels
+from databases.models import APIModels
 
 
 class UsersService:
@@ -13,26 +13,24 @@ class UsersService:
 
     def create(self, data: Users):
         """Creates a `Users` Entity from data"""
-        result = DBModels['users'].create(data.with_secrets()).fresh()
+        result = APIModels.users.create(data.with_secrets()).fresh()
         return Users.from_orm(result)
 
     def retrieve(self, uuid: str) -> Users:
         """Retrieves a `Users` Entity by uuid"""
-        result = DBModels['users'].find(uuid)
+        result = APIModels.users.find(uuid)
         return Users.from_orm(result)
 
-    def listed(
-        self, limit: int = 10, page_nr: int = 1, **kwargs
-    ) -> List[Users]:
+    def listed(self, limit: int = 10, page_nr: int = 1, **kwargs) -> List[Users]:
         """Retrieves a `Users` Entity by uuid"""
         # ? Removes all empty kwarg pairs =)
         query = {key: value for key, value in kwargs.items() if value}
-        result = DBModels['users'].where(query).simple_paginate(limit, page_nr)
+        result = APIModels.users.where(query).simple_paginate(limit, page_nr)
         return UsersList(**result.serialize()).data
 
     def update(self, uuid: str, data: Users) -> Users:
         """Updates a `Users` Entity by uuid with data"""
-        result = DBModels['users'].where({"uuid": uuid}).update(data.dict()).get()
+        result = APIModels.users.where({"uuid": uuid}).update(data.dict()).get()
         return Users.from_orm(result)
 
     def replace(self, uuid: str, data: Users) -> Users:
@@ -42,5 +40,5 @@ class UsersService:
 
     def delete(self, uuid: str) -> Users:
         """Delete a `Users` Entity by uuid"""
-        result = DBModels['users'].delete(uuid)
+        result = APIModels.users.delete(uuid)
         return Users.from_orm(result)
