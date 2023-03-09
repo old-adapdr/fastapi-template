@@ -18,9 +18,9 @@ class ModelsContainer:
                 {name: getattr(import_module(module), f"{name.capitalize()}Model")}
             )
 
-        # ? Set all APIModels properties
+        # ? Set all Models properties
         for key, value in to_load.items():
             setattr(self, key, value)
 
 
-APIModels = ModelsContainer()
+Models = ModelsContainer()

@@ -29,7 +29,7 @@ Responses = Responses.Preferences
 @router.options(
     path="/", operation_id="api.preferences.options", responses=Responses.options
 )
-async def preferences_options(service=Depends(Services.preferences)):
+async def preferences_options(service=Depends(Services.Preferences)):
     """Endpoint is used to find options for the `Preferences` router"""
     result = service.options()
 
@@ -48,7 +48,7 @@ async def preferences_options(service=Depends(Services.preferences)):
 async def create_preferences(
     preferences: Schema.Preferences,
     background: BackgroundTasks,
-    service=Depends(Services.preferences),
+    service=Depends(Services.Preferences),
 ):
     """Endpoint is used to create a `Preferences` entity"""
     result = service.create(preferences)
@@ -67,7 +67,7 @@ async def retrieve_preferences_list(
     name: str = Query(None, description="Name of the Preferences Entity to retrieve"),
     page_nr: int = Query(1, description="Page number to retrieve"),
     limit: int = Query(10, description="Number of items to retrieve"),
-    service=Depends(Services.preferences),
+    service=Depends(Services.Preferences),
 ):
     """Endpoint is used to retrieve a list of `Preferences` entities"""
 
@@ -88,7 +88,7 @@ async def retrieve_preferences(
     uuid: UUID = Path(
         None, description="Unique Identifier for the Preferences Entity to retrieve"
     ),
-    service=Depends(Services.preferences),
+    service=Depends(Services.Preferences),
 ):
     """Endpoint is used to retrieve a `Preferences` entity"""
 
@@ -108,7 +108,7 @@ async def replace_preferences(
     uuid: str = Path(
         ..., description="Unique Identifier for the Preferences Entity to update"
     ),
-    service=Depends(Services.preferences),
+    service=Depends(Services.Preferences),
 ):
     """Endpoint is used to replace a `Preferences` entity"""
     result = service.replace(uuid, preferences)
@@ -127,7 +127,7 @@ async def update_preferences(
     uuid: str = Path(
         ..., description="Unique Identifier for the Preferences Entity to update"
     ),
-    service=Depends(Services.preferences),
+    service=Depends(Services.Preferences),
 ):
     """Endpoint is used to update a `Preferences` entity"""
     result = service.update(uuid, preferences)
@@ -148,7 +148,7 @@ async def delete_preferences(
     uuid: str = Path(
         ..., description="Unique Identifier for the Preferences Entity to delete"
     ),
-    service=Depends(Services.preferences),
+    service=Depends(Services.Preferences),
 ):
     """Endpoint is used to delete a `Preferences` entity"""
     result = service.delete(uuid)

@@ -20,7 +20,7 @@ class ServiceContainer:
             service_container = getattr(
                 import_module(module_name), f"{name.capitalize()}Service"
             )
-            to_load.update({name: service_container})
+            to_load.update({name.capitalize(): service_container})
 
         # ? Set all ServiceContainer properties
         for key, value in to_load.items():

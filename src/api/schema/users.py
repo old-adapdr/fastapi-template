@@ -20,10 +20,7 @@ fake_email = f"{fake_name.lower().replace(' ', '_')}{fake_age}@example.com"
 class Users(BaseModel):
     """Model for a `Users` object"""
 
-    class Config:
-        orm_mode = True
-
-    __uuid__: UUID = Field(
+    uuid: UUID = Field(
         description="Unique IDentifier", default_factory=uuid4, alias="uuid"
     )
 
@@ -50,6 +47,9 @@ class Users(BaseModel):
     __created_at__: str = Field(..., description="When the record was created")
     __updated_at__: str = Field(..., description="When the record was last updated")
     __deleted_at__: str = Field(..., description="When the record was deleted")
+
+    class Config:
+        orm_mode = True
 
     def with_secrets(self):
         """Return a copy of the model with secrets"""

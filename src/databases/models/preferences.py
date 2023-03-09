@@ -3,10 +3,10 @@ File contains preferences model
 """
 from masoniteorm.models import Model
 from masoniteorm.relationships import belongs_to
-from masoniteorm.scopes import SoftDeletesMixin, UUIDPrimaryKeyMixin
+from masoniteorm.scopes import UUIDPrimaryKeyMixin
 
 
-class PreferencesModel(Model, UUIDPrimaryKeyMixin, SoftDeletesMixin):
+class PreferencesModel(Model, UUIDPrimaryKeyMixin):
     """
     Database ORM Model for 'preferences'
     """
