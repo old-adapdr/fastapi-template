@@ -2,8 +2,9 @@
 Module contains standardized config loader and management.
 This is implemented using Pydantic for type safety and docker secerts support.
 """
-from pathlib import Path
 from importlib import import_module
+from pathlib import Path
+
 from pydantic import BaseSettings
 
 
@@ -13,12 +14,14 @@ class ConfigContainer:
     def __init__(self) -> None:
         # ? Locate other schema's
         to_load: dict = {}
-        for schema in Path('config').iterdir():
-            if any([
-                "__" in str(schema),
-                schema.stem == "auto_loader",
-                isinstance(schema, BaseSettings)
-            ]):
+        for schema in Path("config").iterdir():
+            if any(
+                [
+                    "__" in str(schema),
+                    schema.stem == "auto_loader",
+                    isinstance(schema, BaseSettings),
+                ]
+            ):
                 continue
 
             # ? Find required names & properties

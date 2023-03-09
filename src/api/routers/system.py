@@ -3,8 +3,8 @@ from logging import getLogger
 
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-from api.responses import Responses
 
+from api.responses import Responses
 
 # ? Setup Router
 logger = getLogger(__name__)

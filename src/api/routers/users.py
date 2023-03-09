@@ -2,22 +2,20 @@
 from logging import getLogger
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Path, Query, status, Security
+from fastapi import APIRouter, BackgroundTasks, Depends, Path, Query, Security, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
 
+from api.auth import Auth
 from api.responses import Responses
 from api.schema import Schema
 from api.services import Services
 from api.tasks import Tasks
-from api.auth import Auth
 
 # ? Router Configuration
 logger = getLogger(__name__)
 router = APIRouter(
-    prefix="/api/users",
-    tags=["Users CRUD"],
-    dependencies=[Security(Auth.basic)]
+    prefix="/api/users", tags=["Users CRUD"], dependencies=[Security(Auth.basic)]
 )
 
 # ? Select Schema & Responses
@@ -77,7 +75,9 @@ async def retrieve_users_list(
     return result
 
 
-@router.get(path="/deleted", operation_id="api.users.deleted", responses=Responses.listed)
+@router.get(
+    path="/deleted", operation_id="api.users.deleted", responses=Responses.listed
+)
 async def retrieve_deleted_users(
     name: str = Query(None, description="Name of the Users Entity to retrieve"),
     page_nr: int = Query(1, description="Page number to retrieve"),
@@ -172,5 +172,3 @@ async def delete_users(
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
     return Response(content=None, status_code=status.HTTP_204_NO_CONTENT)
-
-

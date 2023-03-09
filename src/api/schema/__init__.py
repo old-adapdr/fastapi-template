@@ -12,10 +12,7 @@ class SchemaContainer:
         # ? Locate other schema's
         to_load: dict = {}
         for schema in Path(AutoLoader().schema_location).iterdir():
-            if any([
-                "__" in str(schema),
-                "generic" in str(schema)
-            ]):
+            if any(["__" in str(schema), "generic" in str(schema)]):
                 continue
 
             # ? Find required names & properties
