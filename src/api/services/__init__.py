@@ -27,4 +27,4 @@ class ServiceContainer:
             setattr(self, key, value)
 
 
-APIServices = ServiceContainer()
+Services = ServiceContainer()

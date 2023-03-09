@@ -27,4 +27,4 @@ class TasksContainer:
             setattr(self, key, value)
 
 
-APITasks = TasksContainer()
+Tasks = TasksContainer()

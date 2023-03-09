@@ -2,32 +2,34 @@
 from logging import getLogger
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Path, Query, status
+from fastapi import APIRouter, BackgroundTasks, Depends, Path, Query, status, Security
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
 
-from api.responses import APIResponses
-from api.schema import APISchema
-from api.services import APIServices
-from api.tasks import APITasks
+from api.responses import Responses
+from api.schema import Schema
+from api.services import Services
+from api.tasks import Tasks
+from api.auth import Auth
 
 # ? Router Configuration
 logger = getLogger(__name__)
 router = APIRouter(
     prefix="/api/preferences",
     tags=["Preferences CRUD"],
+    dependencies=[Security(Auth.basic)]
 )
 
-# ? Router Components
-Responses = APIResponses.preferences
-Schema = APISchema.preferences
+# ? Select Schema & Responses
+Schema = Schema.Preferences
+Responses = Responses.Preferences
 
 
 # ? Router CRUD Endpoints
 @router.options(
     path="/", operation_id="api.preferences.options", responses=Responses.options
 )
-async def preferences_options(service=Depends(APIServices.preferences)):
+async def preferences_options(service=Depends(Services.preferences)):
     """Endpoint is used to find options for the `Preferences` router"""
     result = service.options()
 
@@ -46,13 +48,13 @@ async def preferences_options(service=Depends(APIServices.preferences)):
 async def create_preferences(
     preferences: Schema.Preferences,
     background: BackgroundTasks,
-    service=Depends(APIServices.preferences),
+    service=Depends(Services.preferences),
 ):
     """Endpoint is used to create a `Preferences` entity"""
     result = service.create(preferences)
 
     # ? Is executed after the router has returned a response
-    background.add_task(APITasks.get("preferences").do_after, entity="preferences")
+    background.add_task(Tasks.get("preferences").do_after, entity="preferences")
 
     if not result:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
@@ -65,7 +67,7 @@ async def retrieve_preferences_list(
     name: str = Query(None, description="Name of the Preferences Entity to retrieve"),
     page_nr: int = Query(1, description="Page number to retrieve"),
     limit: int = Query(10, description="Number of items to retrieve"),
-    service=Depends(APIServices.preferences),
+    service=Depends(Services.preferences),
 ):
     """Endpoint is used to retrieve a list of `Preferences` entities"""
 
@@ -86,7 +88,7 @@ async def retrieve_preferences(
     uuid: UUID = Path(
         None, description="Unique Identifier for the Preferences Entity to retrieve"
     ),
-    service=Depends(APIServices.preferences),
+    service=Depends(Services.preferences),
 ):
     """Endpoint is used to retrieve a `Preferences` entity"""
 
@@ -106,7 +108,7 @@ async def replace_preferences(
     uuid: str = Path(
         ..., description="Unique Identifier for the Preferences Entity to update"
     ),
-    service=Depends(APIServices.preferences),
+    service=Depends(Services.preferences),
 ):
     """Endpoint is used to replace a `Preferences` entity"""
     result = service.replace(uuid, preferences)
@@ -125,7 +127,7 @@ async def update_preferences(
     uuid: str = Path(
         ..., description="Unique Identifier for the Preferences Entity to update"
     ),
-    service=Depends(APIServices.preferences),
+    service=Depends(Services.preferences),
 ):
     """Endpoint is used to update a `Preferences` entity"""
     result = service.update(uuid, preferences)
@@ -146,7 +148,7 @@ async def delete_preferences(
     uuid: str = Path(
         ..., description="Unique Identifier for the Preferences Entity to delete"
     ),
-    service=Depends(APIServices.preferences),
+    service=Depends(Services.preferences),
 ):
     """Endpoint is used to delete a `Preferences` entity"""
     result = service.delete(uuid)

@@ -12,7 +12,10 @@ class SchemaContainer:
         # ? Locate other schema's
         to_load: dict = {}
         for schema in Path(AutoLoader().schema_location).iterdir():
-            if "__" in str(schema):
+            if any([
+                "__" in str(schema),
+                "generic" in str(schema)
+            ]):
                 continue
 
             # ? Find required names & properties
@@ -21,11 +24,11 @@ class SchemaContainer:
             schema_container = getattr(
                 import_module(module_name), f"{name.capitalize()}Schema"
             )
-            to_load.update({name: schema_container})
+            to_load.update({name.capitalize(): schema_container})
 
         # ? Set all SchemaContainer properties
         for key, value in to_load.items():
             setattr(self, key, value)
 
 
-APISchema = SchemaContainer()
+Schema = SchemaContainer()

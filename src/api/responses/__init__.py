@@ -17,12 +17,12 @@ class ResponsesContainer:
             name = responses.stem
             module = f"{AutoLoader().responses_location}/{name}".replace("/", ".")
             to_load.update(
-                {name: getattr(import_module(module), f"{name.capitalize()}Responses")}
+                {name.capitalize(): getattr(import_module(module), f"{name.capitalize()}Responses")}
             )
 
-        # ? Set all APIResponses properties
+        # ? Set all Responses properties
         for key, value in to_load.items():
             setattr(self, key, value)
 
 
-APIResponses = ResponsesContainer()
+Responses = ResponsesContainer()
