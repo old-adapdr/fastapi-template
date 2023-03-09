@@ -20,7 +20,7 @@ router = APIRouter(
 
 # ? Router Components
 Responses = APIResponses.get("preferences")
-Schema = APISchema.get("preferences")
+Schema = APISchema.preferences
 
 
 # ? Router CRUD Endpoints

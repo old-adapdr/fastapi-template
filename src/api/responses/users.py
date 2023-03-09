@@ -7,8 +7,8 @@ from api.schema import APISchema
 
 from .generic import GenericResponses
 
-Schema = APISchema["users"]
-GenericSchema = APISchema["generic"]
+Schema = APISchema.users
+GenericSchema = APISchema.generic
 
 
 class UsersResponses:

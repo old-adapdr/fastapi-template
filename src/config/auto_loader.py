@@ -2,7 +2,7 @@
 from pydantic import BaseSettings, Field
 
 
-class _AutoLoader(BaseSettings):
+class AutoLoader(BaseSettings):
     """API Config Container"""
 
     routers_location: str = Field("api/routers")
@@ -19,6 +19,3 @@ class _AutoLoader(BaseSettings):
         env_prefix = "AUTO_LOADER_"
         env_file_encoding = "utf-8"
         case_sensitive = False
-
-
-AutoLoader = _AutoLoader()

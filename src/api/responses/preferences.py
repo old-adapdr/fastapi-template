@@ -7,8 +7,8 @@ from api.schema import APISchema
 
 from .generic import GenericResponses
 
-Schema = APISchema["preferences"]
-GenericSchema = APISchema["generic"]
+Schema = APISchema.preferences
+GenericSchema = APISchema.generic
 
 
 class PreferencesResponses:
