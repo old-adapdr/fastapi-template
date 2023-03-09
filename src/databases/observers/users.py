@@ -1,7 +1,9 @@
 """File contains 'users' model observer"""
 import hashlib
 from uuid import uuid4
+
 from masoniteorm.models import Model
+
 from databases.models.preferences import PreferencesModel
 
 
@@ -15,10 +17,7 @@ class UsersObserver:
         """
         print("User created")
         # ? Add preferences
-        PreferencesModel.create({
-            "uuid": uuid4(),
-            "user_id": user.uuid
-        })
+        PreferencesModel.create({"uuid": uuid4(), "user_id": user.uuid})
         return user
 
     def creating(self, user: Model):

@@ -4,23 +4,27 @@ from pathlib import Path
 
 from config.auto_loader import AutoLoader
 
-SERVICES = {}
 
-for service in Path(AutoLoader.services_loaction).iterdir():
-    if "__" in str(service):
-        continue
+class ServiceContainer:
+    """Class is used as a container for all API Services"""
 
-    name = service.stem
-    module = f"{AutoLoader.services_loaction}/{name}".replace("/", ".")
-    SERVICES.update(
-        {name: getattr(import_module(module), f"{name.capitalize()}Service")}
-    )
+    def __init__(self) -> None:
+        # ? Locate other services
+        to_load: dict = {}
+        for service in Path(AutoLoader().services_loaction).iterdir():
+            if "__" in str(service):
+                continue
+
+            name = service.stem
+            module_name = f"{AutoLoader().services_loaction}/{name}".replace("/", ".")
+            service_container = getattr(
+                import_module(module_name), f"{name.capitalize()}Service"
+            )
+            to_load.update({name.capitalize(): service_container})
+
+        # ? Set all ServiceContainer properties
+        for key, value in to_load.items():
+            setattr(self, key, value)
 
 
-class APIServices:
-    """Class is ussed as an accessor for FastAPI Depends()"""
-
-    @staticmethod
-    def get(name: str):
-        """Method returns a service container"""
-        return SERVICES[name]
+Services = ServiceContainer()

@@ -21,3 +21,6 @@ class APIConfig(BaseSettings):
         env_prefix = "API_"
         env_file_encoding = "utf-8"
         case_sensitive = False
+
+
+ApiConfig = APIConfig

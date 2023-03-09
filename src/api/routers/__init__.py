@@ -10,7 +10,7 @@ from config.auto_loader import AutoLoader
 APIRouters: List[APIRouter] = []
 
 # ? Add routers from ROUTERS_LOCATION -> ROUTERS
-for router in Path(AutoLoader.routers_location).iterdir():
+for router in Path(AutoLoader().routers_location).iterdir():
     if "__" in str(router):
         continue
 

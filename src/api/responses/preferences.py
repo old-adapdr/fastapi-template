@@ -3,12 +3,11 @@ from typing import List
 
 from fastapi import status
 
-from api.schema import APISchema
+from api.schema import Schema
 
 from .generic import GenericResponses
 
-Schema = APISchema["preferences"]
-GenericSchema = APISchema["generic"]
+Schema = Schema.Preferences
 
 
 class PreferencesResponses:
