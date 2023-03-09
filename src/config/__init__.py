@@ -31,7 +31,7 @@ class ConfigContainer:
                 import_module(module_name), f"{name.capitalize()}Config"
             )
 
-            to_load.update({name: schema_container()})  # ! <--- will work
+            to_load.update({name.capitalize(): schema_container()})  # ! <--- will work
 
         # ? Set all SchemaContainer properties
         for key, value in to_load.items():

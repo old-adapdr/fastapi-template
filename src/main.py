@@ -11,7 +11,7 @@ from api.routers import APIRouters
 from config import Config
 
 # Initialize application with configs
-app = FastAPI(**Config.api.dict())
+app = FastAPI(**Config.Api.dict())
 
 # Mount & serve the frontend
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")

@@ -61,14 +61,5 @@ class DatabaseConfig(BaseSettings):
         }
         return values
 
-    class Config:
-        """
-        Internal configuration for the container
-        """
-
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
-
 
 DB = ConnectionResolver().set_connection_details(DatabaseConfig().databases)
