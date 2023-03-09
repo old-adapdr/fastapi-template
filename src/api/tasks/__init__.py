@@ -19,7 +19,11 @@ class TasksContainer:
             name = service.stem
             module_name = f"{AutoLoader().tasks_location}/{name}".replace("/", ".")
             to_load.update(
-                {name.capitalize(): getattr(import_module(module_name), f"{name.capitalize()}Tasks")}
+                {
+                    name.capitalize(): getattr(
+                        import_module(module_name), f"{name.capitalize()}Tasks"
+                    )
+                }
             )
 
         # ? Set all TasksContainer properties

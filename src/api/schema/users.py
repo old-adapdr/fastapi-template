@@ -9,7 +9,8 @@ from uuid import UUID, uuid4
 
 import bcrypt
 from faker import Faker
-from pydantic import BaseModel, EmailStr, Field, SecretStr, root_validator, validator
+from pydantic import (BaseModel, EmailStr, Field, SecretStr, root_validator,
+                      validator)
 
 fake = Faker()
 fake_age = fake.random_int(min=25, max=55)

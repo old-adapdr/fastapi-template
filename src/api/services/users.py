@@ -47,5 +47,7 @@ class UsersService:
         # ? Removes all empty kwarg pairs =)
         query = {key: value for key, value in kwargs.items() if value}
         query.update({"deleted_at": None})
-        result = Models.users.where(query).with_trashed().simple_paginate(limit, page_nr)
+        result = (
+            Models.users.where(query).with_trashed().simple_paginate(limit, page_nr)
+        )
         return UsersList(**result.serialize()).data

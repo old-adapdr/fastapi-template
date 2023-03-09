@@ -2,22 +2,23 @@
 from logging import getLogger
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Path, Query, status, Security
+from fastapi import (APIRouter, BackgroundTasks, Depends, Path, Query,
+                     Security, status)
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
 
+from api.auth import Auth
 from api.responses import Responses
 from api.schema import Schema
 from api.services import Services
 from api.tasks import Tasks
-from api.auth import Auth
 
 # ? Router Configuration
 logger = getLogger(__name__)
 router = APIRouter(
     prefix="/api/preferences",
     tags=["Preferences CRUD"],
-    dependencies=[Security(Auth.basic)]
+    dependencies=[Security(Auth.basic)],
 )
 
 # ? Select Schema & Responses
