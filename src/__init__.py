@@ -1,8 +1,8 @@
 """
 Main Application Module
 """
-from config import Settings
+from config import Config
 
-__title__ = Settings.API.title
-__version__ = Settings.API.version
-__author__ = Settings.API.authors
+__title__ = Config.Api.title
+__version__ = Config.Api.version
+__author__ = Config.Api.authors
