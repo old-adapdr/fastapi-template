@@ -21,7 +21,9 @@ class UsersService:
         result = Models.users.find(uuid)
         return Users.from_orm(result)
 
-    def listed(self, limit: int = 10, page_nr: int = 1, **kwargs) -> List[Users]:
+    def listed(
+        self, limit: int = 10, page_nr: int = 1, **kwargs
+    ) -> List[Users]:
         """Retrieves a `Users` Entity by uuid"""
         # ? Removes all empty kwarg pairs =)
         query = {key: value for key, value in kwargs.items() if value}
@@ -43,11 +45,15 @@ class UsersService:
         result = Models.users.delete(uuid)
         return Users.from_orm(result)
 
-    def deleted(self, limit: int = 10, page_nr: int = 1, **kwargs) -> List[Users]:
+    def deleted(
+        self, limit: int = 10, page_nr: int = 1, **kwargs
+    ) -> List[Users]:
         # ? Removes all empty kwarg pairs =)
         query = {key: value for key, value in kwargs.items() if value}
         query.update({"deleted_at": None})
         result = (
-            Models.users.where(query).with_trashed().simple_paginate(limit, page_nr)
+            Models.users.where(query)
+            .with_trashed()
+            .simple_paginate(limit, page_nr)
         )
         return UsersList(**result.serialize()).data

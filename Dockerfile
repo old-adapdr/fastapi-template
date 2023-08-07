@@ -17,7 +17,7 @@ RUN pip3 install -r /app/requirements.txt
 WORKDIR /app
 
 # Setting up global app variables
-ENV DB_CONFIG_PATH "settings/databases.py"
+ENV DB_CONFIG_PATH "config/databases.py"
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
 # Run app

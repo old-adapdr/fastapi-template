@@ -16,7 +16,9 @@ class ServiceContainer:
                 continue
 
             name = service.stem
-            module_name = f"{AutoLoader().services_loaction}/{name}".replace("/", ".")
+            module_name = f"{AutoLoader().services_loaction}/{name}".replace(
+                "/", "."
+            )
             service_container = getattr(
                 import_module(module_name), f"{name.capitalize()}Service"
             )

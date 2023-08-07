@@ -1,15 +1,13 @@
 """
 File contains response model/schema for the `Users` table
 """
-import hashlib
 from random import choice
 from secrets import token_urlsafe
-from typing import Any, List, Optional
+from typing import List, Optional
 from uuid import UUID, uuid4
 
-import bcrypt
 from faker import Faker
-from pydantic import BaseModel, EmailStr, Field, SecretStr, root_validator, validator
+from pydantic import BaseModel, EmailStr, Field, SecretStr
 
 fake = Faker()
 fake_age = fake.random_int(min=25, max=55)
@@ -45,7 +43,9 @@ class Users(BaseModel):
     )
 
     __created_at__: str = Field(..., description="When the record was created")
-    __updated_at__: str = Field(..., description="When the record was last updated")
+    __updated_at__: str = Field(
+        ..., description="When the record was last updated"
+    )
     __deleted_at__: str = Field(..., description="When the record was deleted")
 
     class Config:

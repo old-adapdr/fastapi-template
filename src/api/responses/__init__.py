@@ -15,7 +15,9 @@ class ResponsesContainer:
             if "__" in str(responses):
                 continue
             name = responses.stem
-            module = f"{AutoLoader().responses_location}/{name}".replace("/", ".")
+            module = f"{AutoLoader().responses_location}/{name}".replace(
+                "/", "."
+            )
             to_load.update(
                 {
                     name.capitalize(): getattr(

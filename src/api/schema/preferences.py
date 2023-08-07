@@ -17,10 +17,14 @@ class Preferences(BaseModel):
 
     toggle_dark_mode: bool = Field(True, description="Toggle dark mode")
     toggle_email: bool = Field(True, description="Toggle email")
-    toggle_notifications: bool = Field(True, description="Toggle notifications")
+    toggle_notifications: bool = Field(
+        True, description="Toggle notifications"
+    )
 
     __created_at__: str = Field(..., description="When the record was created")
-    __updated_at__: str = Field(..., description="When the record was last updated")
+    __updated_at__: str = Field(
+        ..., description="When the record was last updated"
+    )
 
     class Config:
         orm_mode = True

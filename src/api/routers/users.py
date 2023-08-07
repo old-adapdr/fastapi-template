@@ -2,7 +2,15 @@
 from logging import getLogger
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Path, Query, Security, status
+from fastapi import (
+    APIRouter,
+    BackgroundTasks,
+    Depends,
+    Path,
+    Query,
+    Security,
+    status,
+)
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
 
@@ -15,7 +23,9 @@ from api.tasks import Tasks
 # ? Router Configuration
 logger = getLogger(__name__)
 router = APIRouter(
-    prefix="/api/users", tags=["Users CRUD"], dependencies=[Security(Auth.basic)]
+    prefix="/api/users",
+    tags=["Users CRUD"],
+    dependencies=[Security(Auth.basic)],
 )
 
 # ? Select Schema & Responses
@@ -24,7 +34,9 @@ Responses = Responses.Users
 
 
 # ? Router Endpoints
-@router.options(path="/", operation_id="api.users.options", responses=Responses.options)
+@router.options(
+    path="/", operation_id="api.users.options", responses=Responses.options
+)
 async def users_options(service=Depends(Services.Users)):
     """Endpoint is used to find options for the `Users` router"""
     result = service.options()
@@ -58,9 +70,13 @@ async def create_users(
     return result
 
 
-@router.get(path="/", operation_id="api.users.listed", responses=Responses.listed)
+@router.get(
+    path="/", operation_id="api.users.listed", responses=Responses.listed
+)
 async def retrieve_users_list(
-    name: str = Query(None, description="Name of the Users Entity to retrieve"),
+    name: str = Query(
+        None, description="Name of the Users Entity to retrieve"
+    ),
     page_nr: int = Query(1, description="Page number to retrieve"),
     limit: int = Query(10, description="Number of items to retrieve"),
     service=Depends(Services.Users),
@@ -76,10 +92,14 @@ async def retrieve_users_list(
 
 
 @router.get(
-    path="/deleted", operation_id="api.users.deleted", responses=Responses.listed
+    path="/deleted",
+    operation_id="api.users.deleted",
+    responses=Responses.listed,
 )
 async def retrieve_deleted_users(
-    name: str = Query(None, description="Name of the Users Entity to retrieve"),
+    name: str = Query(
+        None, description="Name of the Users Entity to retrieve"
+    ),
     page_nr: int = Query(1, description="Page number to retrieve"),
     limit: int = Query(10, description="Number of items to retrieve"),
     service=Depends(Services.Users),
@@ -116,7 +136,9 @@ async def retrieve_users(
 
 
 @router.put(
-    path="/{uuid}", operation_id="api.users.replace", responses=Responses.replace
+    path="/{uuid}",
+    operation_id="api.users.replace",
+    responses=Responses.replace,
 )
 async def replace_users(
     users: Schema.Users,

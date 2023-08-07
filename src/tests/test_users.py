@@ -3,11 +3,9 @@ File contains tests for 'users' features
 """
 from unittest import TestCase
 
-from webtest_asgi import TestApp
+from fastapi.testclient import TestClient
 
 from src.main import app
-
-TestApp.__test__ = False
 
 
 class TestUsers(TestCase):
@@ -15,15 +13,13 @@ class TestUsers(TestCase):
     Testcases for 'users' features
     """
 
-    app: TestApp
+    app: TestClient
 
     def setUp(self):
         """
         Sets up ASGI Test App and global variables
         """
         # ASGI Test App
-        self.app = TestApp(app)
+        self.app = TestClient(app)
 
         # TestCase Global Variables
-
-    # TODO: Implement test cases
