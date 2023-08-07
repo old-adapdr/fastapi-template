@@ -191,3 +191,4 @@ Thumbs.db
 
 ## Development & Deployment files ##
 src/.env
+.env
