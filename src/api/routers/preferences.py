@@ -2,7 +2,15 @@
 from logging import getLogger
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Path, Query, Security, status
+from fastapi import (
+    APIRouter,
+    BackgroundTasks,
+    Depends,
+    Path,
+    Query,
+    Security,
+    status,
+)
 from fastapi.exceptions import HTTPException
 from fastapi.responses import Response
 
@@ -27,7 +35,9 @@ Responses = Responses.Preferences
 
 # ? Router CRUD Endpoints
 @router.options(
-    path="/", operation_id="api.preferences.options", responses=Responses.options
+    path="/",
+    operation_id="api.preferences.options",
+    responses=Responses.options,
 )
 async def preferences_options(service=Depends(Services.Preferences)):
     """Endpoint is used to find options for the `Preferences` router"""
@@ -54,7 +64,9 @@ async def create_preferences(
     result = service.create(preferences)
 
     # ? Is executed after the router has returned a response
-    background.add_task(Tasks.get("preferences").do_after, entity="preferences")
+    background.add_task(
+        Tasks.get("preferences").do_after, entity="preferences"
+    )
 
     if not result:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
@@ -62,9 +74,13 @@ async def create_preferences(
     return result
 
 
-@router.get(path="/", operation_id="api.preferences.listed", responses=Responses.listed)
+@router.get(
+    path="/", operation_id="api.preferences.listed", responses=Responses.listed
+)
 async def retrieve_preferences_list(
-    name: str = Query(None, description="Name of the Preferences Entity to retrieve"),
+    name: str = Query(
+        None, description="Name of the Preferences Entity to retrieve"
+    ),
     page_nr: int = Query(1, description="Page number to retrieve"),
     limit: int = Query(10, description="Number of items to retrieve"),
     service=Depends(Services.Preferences),
@@ -86,7 +102,8 @@ async def retrieve_preferences_list(
 )
 async def retrieve_preferences(
     uuid: UUID = Path(
-        None, description="Unique Identifier for the Preferences Entity to retrieve"
+        None,
+        description="Unique Identifier for the Preferences Entity to retrieve",
     ),
     service=Depends(Services.Preferences),
 ):
@@ -101,12 +118,15 @@ async def retrieve_preferences(
 
 
 @router.put(
-    path="/{uuid}", operation_id="api.preferences.replace", responses=Responses.replace
+    path="/{uuid}",
+    operation_id="api.preferences.replace",
+    responses=Responses.replace,
 )
 async def replace_preferences(
     preferences: Schema.Preferences,
     uuid: str = Path(
-        ..., description="Unique Identifier for the Preferences Entity to update"
+        ...,
+        description="Unique Identifier for the Preferences Entity to update",
     ),
     service=Depends(Services.Preferences),
 ):
@@ -120,12 +140,15 @@ async def replace_preferences(
 
 
 @router.patch(
-    path="/{uuid}", operation_id="api.preferences.update", responses=Responses.update
+    path="/{uuid}",
+    operation_id="api.preferences.update",
+    responses=Responses.update,
 )
 async def update_preferences(
     preferences: Schema.Preferences,
     uuid: str = Path(
-        ..., description="Unique Identifier for the Preferences Entity to update"
+        ...,
+        description="Unique Identifier for the Preferences Entity to update",
     ),
     service=Depends(Services.Preferences),
 ):
@@ -146,7 +169,8 @@ async def update_preferences(
 )
 async def delete_preferences(
     uuid: str = Path(
-        ..., description="Unique Identifier for the Preferences Entity to delete"
+        ...,
+        description="Unique Identifier for the Preferences Entity to delete",
     ),
     service=Depends(Services.Preferences),
 ):

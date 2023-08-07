@@ -17,7 +17,9 @@ class SchemaContainer:
 
             # ? Find required names & properties
             name = schema.stem
-            module_name = f"{AutoLoader().schema_location}/{name}".replace("/", ".")
+            module_name = f"{AutoLoader().schema_location}/{name}".replace(
+                "/", "."
+            )
             schema_container = getattr(
                 import_module(module_name), f"{name.capitalize()}Schema"
             )

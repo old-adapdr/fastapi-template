@@ -34,7 +34,10 @@ class PreferencesResponses:
             "model": Schema.Preferences,
             "description": "Preferences successfully retrieved",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -49,7 +52,10 @@ class PreferencesResponses:
             "model": List[Schema.Preferences],
             "description": "PreferencesList successfully retrieved",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -64,7 +70,10 @@ class PreferencesResponses:
             "model": Schema.Preferences,
             "description": "Preferences successfully created",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -79,7 +88,10 @@ class PreferencesResponses:
             "model": Schema.Preferences,
             "description": "Preferences successfully updated",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -94,7 +106,10 @@ class PreferencesResponses:
             "model": Schema.Preferences,
             "description": "Preferences successfully replaced",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -109,7 +124,10 @@ class PreferencesResponses:
             "content": None,
             "description": "Preferences successfully deleted",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },

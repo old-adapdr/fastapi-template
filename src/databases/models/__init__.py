@@ -15,7 +15,11 @@ class ModelsContainer:
             name = model.stem
             module = f"{AutoLoader().models_location}/{name}".replace("/", ".")
             to_load.update(
-                {name: getattr(import_module(module), f"{name.capitalize()}Model")}
+                {
+                    name: getattr(
+                        import_module(module), f"{name.capitalize()}Model"
+                    )
+                }
             )
 
         # ? Set all Models properties

@@ -3,6 +3,7 @@ import secrets
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
+
 from config import Config
 
 
@@ -27,10 +28,12 @@ class Auth:
             [
                 secrets.compare_digest(
                     credentials.username.encode("utf8"),
-                    Config().auth.username.encode("utf8")),
+                    Config().auth.username.encode("utf8"),
+                ),
                 secrets.compare_digest(
                     credentials.password.encode("utf8"),
-                    Config().auth.password.encode("utf8")),
+                    Config().auth.password.encode("utf8"),
+                ),
             ]
         )
         if not valid_credentials:

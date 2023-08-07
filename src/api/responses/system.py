@@ -13,7 +13,10 @@ class SystemResponses:
             "class": HTMLResponse,
             "description": "HTML resource successfully served by the system",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },

@@ -15,7 +15,10 @@ class GenericResponses:
             "model": List[Message],
             "description": "Successfully processed operation",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -28,7 +31,10 @@ class GenericResponses:
             "description": "Redirects from index to /docs",
             "headers": {
                 "Location": {"description": "Content Length", "type": "int"},
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -41,7 +47,10 @@ class GenericResponses:
             "model": List[Message],
             "description": "Unauthorized to view requested resource",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -53,7 +62,10 @@ class GenericResponses:
             "model": List[Message],
             "description": "Could not find requested resource",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -65,7 +77,10 @@ class GenericResponses:
             "model": List[Message],
             "descriptions": "The requested resource already exists!",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -77,7 +92,10 @@ class GenericResponses:
             "model": List[Message],
             "descriptions": "Server could not process entity",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
@@ -90,7 +108,10 @@ class GenericResponses:
             "model": List[Message],
             "description": "Server could not process request",
             "headers": {
-                "content-length": {"description": "Content Length", "type": "int"},
+                "content-length": {
+                    "description": "Content Length",
+                    "type": "int",
+                },
                 "date": {"description": "Response Date", "type": "Datetime"},
                 "server": {"description": "API Server", "type": "string"},
             },
