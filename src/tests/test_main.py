@@ -25,8 +25,9 @@ class TestMain(TestCase):
         # TestCase Global Variables
 
     def test_has_landing(self):
-        response = self.app.get("/docs")
+        response = self.app.get("/")
         self.assertEqual(response.status_code, 200)
+        self.assertIn("DOCTYPE", response.text)
 
     def test_has_docs(self):
         response_docs = self.app.get("/docs")
